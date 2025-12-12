@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover premium products at North Aesthetic. Explore our collection of high-quality items designed for modern living.">
+    <meta name="keywords" content="north aesthetic, premium products, online shopping, aesthetic goods">
     <title>Home - North Aesthetic</title>
     <style>
         /* ========== RESET ========== */
@@ -278,7 +280,7 @@
 <nav class="visible">
     <div class="nav-container">
         <a href="index.html" class="logo">
-            <img src="Aesthetic.jpg" alt="Logo" class="logo-img">
+            <img src="Aesthetic.jpg" alt="North Aesthetic Logo" class="logo-img" loading="lazy" width="70" height="70">
             <span>North Aesthetic</span>
         </a>
         <ul class="nav-links" id="navLinks">
@@ -286,7 +288,7 @@
             <li><a href="Feedback.html">Feedback</a></li>
             <li><a href="About.html">About Us</a></li>
         </ul>
-        <div class="hamburger" id="hamburger">
+        <div class="hamburger" id="hamburger" aria-label="Toggle navigation">
             <span></span>
             <span></span>
             <span></span>
@@ -372,6 +374,7 @@
         </div>
         <div class="footer-section">
             <h3>Quick Links</h3>
+            <p><a href="index.html">Home</a></p>
             <p><a href="Products.html">Products</a></p>
             <p><a href="Feedback.html">Feedback</a></p>
             <p><a href="About.html">About Us</a></p>
@@ -441,6 +444,15 @@
         }
         lastScroll = currentScroll;
     });
+
+    // Highlight current page
+    const currentPage = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a').forEach(a => {
+        if (a.href.endsWith(currentPage)) a.style.fontWeight = 'bold';
+    });
+
+    // Dynamic copyright
+    document.querySelector('.footer-bottom p').innerHTML = '&copy; ' + new Date().getFullYear() + ' North Aesthetic. All rights reserved.';
 
     showSlides();
 </script>

@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse our range of innovative products including headphones, smart watches, sunglasses, and more at competitive prices from North Aesthetic.">
+    <meta name="keywords" content="north aesthetic products, headphones, smart watch, sunglasses, sneakers, online shopping">
     <title>Products - North Aesthetic</title>
     <style>
         /* ========== RESET ========== */
@@ -391,7 +393,7 @@
 <nav>
     <div class="nav-container">
         <a href="index.html" class="logo">
-            <img src="Aesthetic.jpg" alt="Logo" class="logo-img">
+            <img src="Aesthetic.jpg" alt="North Aesthetic Logo" class="logo-img" loading="lazy" width="70" height="70">
             <span>North Aesthetic</span>
         </a>
         <ul class="nav-links" id="navLinks">
@@ -399,7 +401,7 @@
             <li><a href="Feedback.html">Feedback</a></li>
             <li><a href="About.html">About Us</a></li>
         </ul>
-        <div class="hamburger" id="hamburger">
+        <div class="hamburger" id="hamburger" aria-label="Toggle navigation">
             <span></span>
             <span></span>
             <span></span>
@@ -414,7 +416,7 @@
     <div class="products-grid">
         <!-- Product 1 -->
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=400&fit=crop" alt="Premium Headphones" class="product-image">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=400&fit=crop" alt="Premium Headphones" class="product-image" loading="lazy" width="600" height="400">
             <div class="product-info">
                 <h3 class="product-name">Premium Headphones</h3>
                 <p class="product-description">High-quality wireless headphones with noise cancellation and superior sound.</p>
@@ -427,7 +429,7 @@
 
         <!-- Product 2 -->
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=400&fit=crop" alt="Smart Watch" class="product-image">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=400&fit=crop" alt="Smart Watch" class="product-image" loading="lazy" width="600" height="400">
             <div class="product-info">
                 <h3 class="product-name">Smart Watch</h3>
                 <p class="product-description">Stay connected with this stylish smartwatch featuring fitness tracking.</p>
@@ -440,7 +442,7 @@
 
         <!-- Product 3 -->
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=400&fit=crop" alt="Sunglasses" class="product-image">
+            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=400&fit=crop" alt="Sunglasses" class="product-image" loading="lazy" width="600" height="400">
             <div class="product-info">
                 <h3 class="product-name">Sunglasses</h3>
                 <p class="product-description">Designer sunglasses with UV protection and polarized lenses.</p>
@@ -453,7 +455,7 @@
 
         <!-- Product 4 -->
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&h=400&fit=crop" alt="Sneakers" class="product-image">
+            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&h=400&fit=crop" alt="Sneakers" class="product-image" loading="lazy" width="600" height="400">
             <div class="product-info">
                 <h3 class="product-name">Sneakers</h3>
                 <p class="product-description">Comfortable and stylish sneakers perfect for everyday wear.</p>
@@ -466,7 +468,7 @@
 
         <!-- Product 5 -->
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&h=400&fit=crop" alt="Laptop Backpack" class="product-image">
+            <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&h=400&fit=crop" alt="Laptop Backpack" class="product-image" loading="lazy" width="600" height="400">
             <div class="product-info">
                 <h3 class="product-name">Laptop Backpack</h3>
                 <p class="product-description">Durable backpack with padded laptop compartment and multiple pockets.</p>
@@ -479,7 +481,7 @@
 
         <!-- Product 6 -->
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=600&h=400&fit=crop" alt="Notebook Set" class="product-image">
+            <img src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=600&h=400&fit=crop" alt="Notebook Set" class="product-image" loading="lazy" width="600" height="400">
             <div class="product-info">
                 <h3 class="product-name">Notebook Set</h3>
                 <p class="product-description">Premium quality notebooks perfect for journaling and note-taking.</p>
@@ -662,6 +664,15 @@
         }
         lastScroll = current;
     });
+
+    // Highlight current page
+    const currentPage = location.pathname.split('/').pop() || 'Products.html';
+    document.querySelectorAll('.nav-links a').forEach(a => {
+        if (a.href.endsWith(currentPage)) a.style.fontWeight = 'bold';
+    });
+
+    // Dynamic copyright
+    document.querySelector('.footer-bottom p').innerHTML = '&copy; ' + new Date().getFullYear() + ' North Aesthetic. All rights reserved.';
 </script>
 </body>
 </html>
