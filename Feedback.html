@@ -209,56 +209,7 @@
         }
 
         .success-message.show { display: block; }
-
-        /* ========== TESTIMONIALS ========== */
-        .testimonials-section {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .testimonials-section h2 {
-            text-align: center;
-            color: #667eea;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .testimonial-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            margin-right: 1rem;
-        }
-
         .testimonial-info h4 { margin-bottom: 0.2rem; }
-        .testimonial-stars { color: #ffc107; }
-        .testimonial-text { color: #666; font-style: italic; }
 
         /* ========== FOOTER ========== */
         footer {
@@ -423,45 +374,6 @@
     </div>
 </div>
 
-<!-- Testimonials Section -->
-<div class="testimonials-section">
-    <h2>What Our Customers Say</h2>
-    <div class="testimonials-grid">
-        <div class="testimonial-card">
-            <div class="testimonial-header">
-                <div class="testimonial-avatar">JD</div>
-                <div class="testimonial-info">
-                    <h4>John Doe</h4>
-                    <div class="testimonial-stars">★★★★★</div>
-                </div>
-            </div>
-            <p class="testimonial-text">"Amazing products and excellent customer service! I'm extremely satisfied with my purchase and will definitely shop here again."</p>
-        </div>
-
-        <div class="testimonial-card">
-            <div class="testimonial-header">
-                <div class="testimonial-avatar">SA</div>
-                <div class="testimonial-info">
-                    <h4>Sarah Anderson</h4>
-                    <div class="testimonial-stars">★★★★★</div>
-                </div>
-            </div>
-            <p class="testimonial-text">"The quality exceeded my expectations! Fast shipping and great packaging. Highly recommend North Aesthetic to everyone."</p>
-        </div>
-
-        <div class="testimonial-card">
-            <div class="testimonial-header">
-                <div class="testimonial-avatar">MT</div>
-                <div class="testimonial-info">
-                    <h4>Mike Thompson</h4>
-                    <div class="testimonial-stars">★★★★☆</div>
-                </div>
-            </div>
-            <p class="testimonial-text">"Great selection of products. The website is easy to navigate and the checkout process was smooth. Very happy with my experience!"</p>
-        </div>
-    </div>
-</div>
-
 <!-- Footer -->
 <footer>
     <div class="footer-container">
@@ -538,7 +450,7 @@
         stars.forEach(s => s.classList.toggle('active', s.dataset.rating <= currentRating));
     });
 
-    // Form Submission
+    // Form Submission - Save to TXT File
     function submitFeedback() {
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
@@ -553,23 +465,49 @@
 
         const submitBtn = document.querySelector('.submit-btn');
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
+        submitBtn.textContent = 'Processing...';
 
+        const timestamp = new Date().toLocaleString();
+        const feedbackText = `
+
+Koha: ${timestamp}
+Emri: ${name}
+Email: ${email}
+Kategoria: ${category}
+RATE: ${'★'.repeat(parseInt(rating))}${'☆'.repeat(5 - parseInt(rating))} (${rating}/5)
+MSG: ${message}
+
+`;
+
+        const blob = new Blob([feedbackText], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Feedback_${name.replace(/\s+/g, '_')}_${Date.now()}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+
+        // Show success message
         setTimeout(() => {
             document.getElementById('successMessage').classList.add('show');
+
+            // Reset form
             document.getElementById('name').value = '';
             document.getElementById('email').value = '';
             document.getElementById('category').value = '';
             document.getElementById('rating').value = '0';
             stars.forEach(s => s.classList.remove('active'));
             document.getElementById('message').value = '';
+
             submitBtn.disabled = false;
             submitBtn.textContent = 'Submit Feedback';
 
             setTimeout(() => {
                 document.getElementById('successMessage').classList.remove('show');
             }, 5000);
-        }, 1000);
+        }, 500);
     }
 
     // Navbar Scroll
@@ -590,15 +528,6 @@
         }
         lastScroll = current;
     });
-
-    // Highlight current page
-    const currentPage = location.pathname.split('/').pop() || 'Feedback.html';
-    document.querySelectorAll('.nav-links a').forEach(a => {
-        if (a.href.endsWith(currentPage)) a.style.fontWeight = 'bold';
-    });
-
-    // Dynamic copyright
-    document.querySelector('.footer-bottom p').innerHTML = '&copy; ' + new Date().getFullYear() + ' North Aesthetic. All rights reserved.';
 </script>
 </body>
 </html>
