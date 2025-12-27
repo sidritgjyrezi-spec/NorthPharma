@@ -428,56 +428,15 @@
         });
     });
 
-    // Rating System
-    const stars = document.querySelectorAll('.star');
-    const ratingInput = document.getElementById('rating');
-
-    stars.forEach(star => {
-        star.addEventListener('click', function() {
-            const rating = this.dataset.rating;
-            ratingInput.value = rating;
-            stars.forEach(s => s.classList.toggle('active', s.dataset.rating <= rating));
-        });
-
-        star.addEventListener('mouseenter', function() {
-            const rating = this.dataset.rating;
-            stars.forEach(s => s.classList.toggle('active', s.dataset.rating <= rating));
-        });
-    });
-
-    document.getElementById('ratingContainer').addEventListener('mouseleave', function() {
-        const currentRating = ratingInput.value;
-        stars.forEach(s => s.classList.toggle('active', s.dataset.rating <= currentRating));
-    });
 
     // Form Submission - Save to TXT File
-    function submitFeedback() {
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const category = document.getElementById('category').value;
-        const rating = document.getElementById('rating').value;
-        const message = document.getElementById('message').value;
 
-        if (!name || !email || !category || rating === '0' || !message) {
-            alert('Please fill in all required fields and select a rating.');
-            return;
-        }
 
         const submitBtn = document.querySelector('.submit-btn');
         submitBtn.disabled = true;
         submitBtn.textContent = 'Processing...';
 
         const timestamp = new Date().toLocaleString();
-        const feedbackText = `
-
-Koha: ${timestamp}
-Emri: ${name}
-Email: ${email}
-Kategoria: ${category}
-RATE: ${'★'.repeat(parseInt(rating))}${'☆'.repeat(5 - parseInt(rating))} (${rating}/5)
-MSG: ${message}
-
-`;
 
         const blob = new Blob([feedbackText], { type: 'text/plain' });
         const url = window.URL.createObjectURL(blob);
@@ -508,7 +467,6 @@ MSG: ${message}
                 document.getElementById('successMessage').classList.remove('show');
             }, 5000);
         }, 500);
-    }
 
     // Navbar Scroll
     let lastScroll = 0;
